@@ -1,25 +1,24 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { IconSearch } from '@tabler/icons-react';
-
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { IconSearch } from "@tabler/icons-react";
 
 // TODO: Lift up state to a higher component to actually do the searching. Make an
 // onSearch prop and pass in handleSearch defined in the higher level component
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement search functionality
-    console.log('Searching for:', searchTerm);
+    console.log("Searching for:", searchTerm);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <form onSubmit={handleSearch} className="relative">
@@ -31,13 +30,13 @@ const SearchBar = () => {
         onChange={handleInputChange}
       />
 
-      <Button 
-        type="submit" 
-        size="icon" 
-        variant="ghost" 
+      <Button
+        type="submit"
+        size="icon"
+        variant="ghost"
         className="absolute right-0 top-0 h-full"
       >
-        <IconSearch/>
+        <IconSearch />
       </Button>
     </form>
   );
