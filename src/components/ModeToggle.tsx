@@ -1,23 +1,25 @@
+// components/ModeToggle.tsx
 "use client"
+
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 
 export default function ModeToggle() {
-  const [mounted, setMounted] = React.useState(false)
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
 
   if (!mounted) {
-    return null // Return null on server-side to prevent hydration mismatch
+    return null
   }
 
   const handleToggle = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
+    setTheme(theme === "light" ? "dark" : "light")
   }
 
   return (

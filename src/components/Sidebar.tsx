@@ -1,37 +1,35 @@
 // components/Sidebar.tsx
 'use client'
 
-import React, { useState } from 'react';
+import React from 'react';
+import { IconArrowBarLeft, IconArrowBarRight } from '@tabler/icons-react';
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface SidebarProps {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
 
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onOpen, onClose }) => {
   return (
     <>
-      {/* Overlay */}
       <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-in-out ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setIsOpen(false)}
-      />
-      
-      {/* Sidebar */}
-      <div 
-        className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-all duration-300 ease-in-out
+        className={`fixed top-0 left-0 h-full w-64 z-30 transform transition-all duration-300 ease-in-out
                     bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
                     border-r border-[hsl(var(--border))] ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <button 
-          onClick={() => setIsOpen(false)} 
-          className="absolute top-4 right-4 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+          onClick={onClose} 
+          className={`absolute top-4 right-4 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-[visibility] duration-0 delay-285 ${
+            isOpen ? 'visible' : 'invisible'}`}
         >
-          Close
+          {/* Close */}
+          <IconArrowBarLeft stroke={2} />
         </button>
         <nav className="p-4">
-          <ul>
+          <ul className="mt-8">
             <li className="mb-2"><a href="#" className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]">Home</a></li>
             <li className="mb-2"><a href="#" className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]">Colleges</a></li>
             <li className="mb-2"><a href="#" className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]">About</a></li>
@@ -39,12 +37,14 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Open button */}
       <button 
-        onClick={() => setIsOpen(true)}
-        className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+        onClick={onOpen}
+        className={`fixed top-4 left-4 z-40 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-[visibility] duration-0 delay-285 ${
+          isOpen ? 'invisible' : 'visible'
+        }`}
       >
-        Menu
+        {/* Open */}
+        <IconArrowBarRight stroke={2} /> 
       </button>
     </>
   );
