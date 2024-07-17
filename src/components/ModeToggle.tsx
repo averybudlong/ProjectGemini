@@ -33,7 +33,7 @@ export default function ModeToggle() {
         <Button
           variant="outline"
           onClick={handleToggle}
-          className="flex items-center gap-1 py-1 px-2 text-l absolute top-0 left-0"
+          className="flex items-center gap-1 py-1 px-2 text-l absolute top-0 left-0 hover:text-[hsl(var(--green-button-text))]"
         >
           <div className="relative w-[1.25rem] h-[1.25rem]">
             <Sun className="h-[1.25rem] w-[1.25rem] rotate-0 scale-0 transition-all dark:-rotate-90 dark:scale-100 absolute top-0 left-0" />

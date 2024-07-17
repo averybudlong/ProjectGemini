@@ -2,8 +2,14 @@
 "use client";
 
 import React from "react";
-import { IconArrowBarLeft, IconArrowBarRight } from "@tabler/icons-react";
+import {
+  IconArrowBarLeft,
+  IconArrowBarRight,
+  IconHome,
+} from "@tabler/icons-react";
 import ModeToggle from "../components/ModeToggle";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -27,7 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onOpen, onClose }) => {
             isOpen ? "visible" : "invisible"
           }`}
         >
-          {/* Close */}
           <IconArrowBarLeft stroke={2} />
         </button>
         <span>
@@ -35,31 +40,37 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onOpen, onClose }) => {
             <ModeToggle />
           </div>
         </span>
-        <nav className="p-4">
-          <ul className="mt-8">
-            <li className="mb-2">
-              <a
-                href="#"
-                className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]"
+        <nav className="p-2">
+          <ul className="space-y-2">
+            <li>
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:bg-[hsl(142,71%,45%)] hover:text-[hsl(var(--green-button-text))]"
+                asChild
               >
-                Home
-              </a>
+                <Link href="/">
+                  <IconHome />
+                  <span className="ml-2">Dashboard</span>
+                </Link>
+              </Button>
             </li>
-            <li className="mb-2">
-              <a
-                href="#"
-                className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]"
+            <li>
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:bg-[hsl(142,71%,45%)] hover:text-[hsl(var(--green-button-text))]"
+                asChild
               >
-                Colleges
-              </a>
+                <Link href="/colleges">Colleges</Link>
+              </Button>
             </li>
-            <li className="mb-2">
-              <a
-                href="#"
-                className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent-foreground))]"
+            <li>
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:bg-[hsl(142,71%,45%)] hover:text-[hsl(var(--green-button-text))]"
+                asChild
               >
-                About
-              </a>
+                <Link href="/about">About</Link>
+              </Button>
             </li>
           </ul>
         </nav>
@@ -71,7 +82,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onOpen, onClose }) => {
           isOpen ? "invisible" : "visible"
         }`}
       >
-        {/* Open */}
         <IconArrowBarRight stroke={2} />
       </button>
     </>
