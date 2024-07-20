@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -19,13 +19,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const UMDData = {
+  name: "University of Maryland College-Park",
+  undergradEnrollment: 29982,
+  location: "College Park, MD",
+};
+
+const docRef = doc(db, "colleges", UMDData.name + " " + UMDData.location);
+
 try {
-  const docRef = await addDoc(collection(db, "users"), {
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815,
-  });
-  console.log("Document written with ID: ", docRef.id);
+  await setDoc(docRef, UMDData, { merge: true });
+  console.log("Document written");
 } catch (e) {
   console.error("Error adding document: ", e);
 }
+
+const snapShot = await getDoc(docRef);
+const umd = snapShot.data();
+console.log(`${JSON.stringify(umd)}`);
