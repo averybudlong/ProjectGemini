@@ -44,17 +44,36 @@ collegeDataArray.push(
     name: "Ligma State University",
     undergradEnrollment: 69,
     location: "Balls, MA",
+  },
+  {
+    name: "Oregon State Univ",
+    undergradEnrollment: 24444,
+    location: "Corvallis, OR",
   }
 );
 
 async function addColleges() {
   for (const collegeData of collegeDataArray) {
-    const docRef = doc(collection(db, "colleges"));
     try {
-      await setDoc(docRef, collegeData);
-      console.log(`Document written for ${collegeData.name}`);
+      // Check if a document with this name already exists
+      const q = query(
+        collection(db, "colleges"),
+        where("name", "==", collegeData.name)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        // No matching document found, so add the new one
+        const docRef = doc(collection(db, "colleges"));
+        await setDoc(docRef, collegeData);
+        console.log(`Document written for ${collegeData.name}`);
+      } else {
+        console.log(
+          `Document for ${collegeData.name} already exists, skipping`
+        );
+      }
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error processing document: ", e);
     }
   }
 }
