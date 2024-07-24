@@ -29,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={openSans.className}
+        className={inter.className}
         style={{ backgroundColor: "hsl(var(--main-background))" }}
       >
         <RootLayoutClient>{children}</RootLayoutClient>
