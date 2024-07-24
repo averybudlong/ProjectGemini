@@ -9,20 +9,28 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { College } from "../types/College";
+import React from "react";
 
-const CollegeCard = () => {
+interface CollegeCardProps {
+  college: College;
+}
+
+const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
   return (
-    <Link href="/university-of-maryland">
+    <Link href={`/college/${college.urlName}`}>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>{college.name}</CardTitle>
+          <CardDescription>{college.location}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <p>
+            Undergraduate Enrollment: {college.undergradEnrollment.toString()}
+          </p>
         </CardContent>
         <CardFooter>
-          <p>Card Footer</p>
+          <p>ID: {college.urlName}</p>
         </CardFooter>
       </Card>
     </Link>

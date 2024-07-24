@@ -32,21 +32,25 @@ const collegeDataArray = [];
 collegeDataArray.push(
   {
     name: "University of Maryland College-Park",
+    urlName: "UniversityofMarylandCollege-Park",
     undergradEnrollment: 29982,
     location: "College Park, MD",
   },
   {
     name: "Squidward Univ",
+    urlName: "SquidwardUniv",
     undergradEnrollment: 99999,
     location: "Bikini Bottom, Pacific Ocean",
   },
   {
     name: "Ligma State University",
+    urlName: "LigmaStateUniversity",
     undergradEnrollment: 69,
     location: "Balls, MA",
   },
   {
     name: "Oregon State Univ",
+    urlName: "OregonStateUniv",
     undergradEnrollment: 24444,
     location: "Corvallis, OR",
   }
@@ -64,7 +68,7 @@ async function addColleges() {
 
       if (querySnapshot.empty) {
         // No matching document found, so add the new one
-        const docRef = doc(collection(db, "colleges"));
+        const docRef = doc(collection(db, "colleges"), collegeData.urlName);
         await setDoc(docRef, collegeData);
         console.log(`Document written for ${collegeData.name}`);
       } else {
