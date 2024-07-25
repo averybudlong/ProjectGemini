@@ -1,44 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
 
-// TODO: Lift up state to a higher component to actually do the searching. Make an
-// onSearch prop and pass in handleSearch defined in the higher level component
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+interface SearchBarProps {
+  onSearch: (term: string) => void;
+}
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement search functionality
-    console.log("Searching for:", searchTerm);
-  };
-
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    onSearch(e.target.value);
   };
 
   return (
-    <form onSubmit={handleSearch} className="relative">
+    <div className="relative">
       <Input
         type="search"
         placeholder="Search Colleges"
         className="pl-4 pr-10"
-        value={searchTerm}
         onChange={handleInputChange}
       />
-
-      <Button
-        type="submit"
-        size="icon"
-        variant="ghost"
-        className="absolute right-0 top-0 h-full"
-      >
-        <IconSearch />
-      </Button>
-    </form>
+      <IconSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+    </div>
   );
 };
 
