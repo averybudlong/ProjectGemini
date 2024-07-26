@@ -19,7 +19,7 @@ interface CollegeCardProps {
 const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
   return (
     <Link href={`/college/${college.urlName}`}>
-      <Card>
+      <Card className="hover:scale-105 transform transition duration-200">
         <CardHeader>
           <CardTitle>{college.name}</CardTitle>
           <CardDescription>{college.location}</CardDescription>
