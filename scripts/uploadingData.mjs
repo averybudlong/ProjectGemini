@@ -35,6 +35,7 @@ collegeDataArray.push(
     urlName: "UniversityofMarylandCollege-Park",
     undergradEnrollment: 29982,
     location: "College Park, MD",
+    imageUrl: "/images/UMD.jpg",
   },
   {
     name: "Squidward Univ",
