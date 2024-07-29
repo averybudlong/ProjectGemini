@@ -54,6 +54,7 @@ collegeDataArray.push(
     urlName: "OregonStateUniv",
     undergradEnrollment: 24444,
     location: "Corvallis, OR",
+    imageUrl: "/images/columbia.jpg",
   }
 );
 
