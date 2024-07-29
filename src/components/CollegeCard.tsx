@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+
 import {
   Card,
   CardContent,
@@ -17,9 +19,20 @@ interface CollegeCardProps {
 }
 
 const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
+  const PLACEHOLDER_IMAGE = "/images/placeholder.jpg";
+
   return (
     <Link href={`/college/${college.urlName}`}>
-      <Card className="hover:scale-105 transform transition duration-200">
+      <Card className="max-w-s hover:scale-105 transform transition duration-200">
+        <div className="relative w-full h-48">
+          <Image
+            src={college.imageUrl || PLACEHOLDER_IMAGE}
+            alt={`${college.name} campus`}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg"
+          />
+        </div>
         <CardHeader>
           <CardTitle>{college.name}</CardTitle>
           <CardDescription>{college.location}</CardDescription>
@@ -30,7 +43,7 @@ const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
           </p>
         </CardContent>
         <CardFooter>
-          <p>ID: {college.urlName}</p>
+          <p className="overflow-hidden">ID: {college.urlName}</p>
         </CardFooter>
       </Card>
     </Link>

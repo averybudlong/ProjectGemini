@@ -3,7 +3,7 @@
 import { getAllColleges } from "@/app/utils/firebaseUtils";
 import SearchBar from "../components/SearchBar";
 import CollegeCard from "../components/CollegeCard";
-import { Space_Mono, Rubik_Mono_One } from "next/font/google";
+import { Courier_Prime, Rubik_Mono_One, Merriweather } from "next/font/google";
 import { useEffect, useMemo, useState } from "react";
 import { College } from "@/types/College";
 
@@ -11,8 +11,12 @@ interface HomeClientProps {
   initialColleges: College[];
 }
 
-const sm = Space_Mono({ subsets: ["latin"], weight: "700" });
+const courierPrime = Courier_Prime({ subsets: ["latin"], weight: "700" });
 const rubikMonoOne = Rubik_Mono_One({ subsets: ["latin"], weight: "400" });
+const dmSerifDisplay = Merriweather({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export default function HomeClient({ initialColleges }: HomeClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,22 +36,24 @@ export default function HomeClient({ initialColleges }: HomeClientProps) {
       <div className="mx-4">
         <h1
           className={`
-          ${rubikMonoOne.className} 
-          text-4xl sm:text-4xl md:text-5xl lg:text-5xl 
-          font-extrabold 
+          ${courierPrime.className} 
+          text-5xl
+          font-bold 
           mb-4 mt-8 
+          pb-2
           text-center sm:text-left
-          leading-tight
           whitespace-nowrap
           overflow-hidden
+          tracking-wider
         `}
         >
-          Common College Data
+          common<span className="text-[hsl(var(--accent))]">/</span>college
+          <span className="text-[hsl(var(--accent))]">/</span>data
         </h1>
 
         <SearchBar onSearch={handleSearch} />
 
-        <div className="mt-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-4 grid-cols-3 xl:grid-cols-4">
           {filteredColleges.map((college) => (
             <CollegeCard key={college.urlName} college={college} />
           ))}
