@@ -22,28 +22,28 @@ const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
   const PLACEHOLDER_IMAGE = "/images/placeholder.jpg";
 
   return (
-    <Link href={`/college/${college.urlName}`}>
+    <Link href={`/college/${college.UID}`}>
       <Card className="max-w-s hover:scale-105 transform transition duration-200">
         <div className="relative w-full h-48">
           <Image
             src={college.imageUrl || PLACEHOLDER_IMAGE}
             alt={`${college.name} campus`}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="rounded-t-lg"
           />
         </div>
         <CardHeader>
           <CardTitle>{college.name}</CardTitle>
-          <CardDescription>{college.location}</CardDescription>
+          <CardDescription>
+            {college.city}, {college.state}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>
-            Undergraduate Enrollment: {college.undergradEnrollment.toString()}
-          </p>
+          <p>Undergraduate Enrollment: {college.enrolled.toString()}</p>
         </CardContent>
         <CardFooter>
-          <p className="overflow-hidden">ID: {college.urlName}</p>
+          <p className="overflow-hidden">ID: {college.UID}</p>
         </CardFooter>
       </Card>
     </Link>

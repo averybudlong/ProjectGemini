@@ -1,8 +1,40 @@
 interface College {
-  urlName: string;
+  UID: number;
   name: string;
-  undergradEnrollment: number;
-  location: string;
+  alias: string;
+  city: string;
+  state: string;
+  website: string;
+  appWebsite: string;
+  longitude: number;
+  latitude: number;
+  standardizedTest: number;
+  applicants: number;
+  applicantsM: number;
+  applicantsW: number;
+  admission: number;
+  admissionM: number;
+  admissionW: number;
+  enrolled: number;
+  enrolledM: number;
+  enrolledW: number;
+  SATPct: number;
+  ACTPct: number;
+  SATRW25: number;
+  SATRW50: number;
+  SATRW75: number;
+  SATM25: number;
+  SATM50: number;
+  SATM75: number;
+  ACT25: number;
+  ACT50: number;
+  ACT75: number;
+  ACTE25: number;
+  ACTE50: number;
+  ACTE75: number;
+  ACTM25: number;
+  ACTM50: number;
+  ACTM75: number;
   imageUrl: string;
 }
 
