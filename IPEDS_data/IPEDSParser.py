@@ -25,9 +25,9 @@ interface College {
   applicants: number;
   applicantsM: number;
   applicantsW: number;
-  admission: number;
-  admissionM: number;
-  admissionW: number;
+  admitted: number;
+  admittedM: number;
+  admittedW: number;
   enrolled: number;
   enrolledM: number;
   enrolledW: number;
@@ -52,29 +52,82 @@ interface College {
 }
 '''
 
-for i in range(10):
+# maps firestore DB key to csv file key
+attributeMapCollege = {
+  'UID': 'UNITID',
+  'name': 'INSTNM',
+  'alias': 'IALIAS',
+  'city': 'CITY',
+  'state': 'STABBR',
+  'website': 'WEBADDR',
+  'appWebsite': 'APPLURL',
+  'longitude': 'LONGITUD',
+  'latitude': 'LATITUDE',
+}
+
+attributeMapCDS = {
+  'standardizedTest': 'ADMCON7',
+  'applicants': 'APPLCN',
+  'applicantsM': 'APPLCNM',
+  'applicantsW': 'APPLCNW',
+  'admitted': 'ADMSSN',
+  'admittedM': 'ADMSSNM',
+  'admittedW': 'ADMSSNW',
+  'enrolled': 'ENRLT',
+  'enrolledM': 'ENRLM',
+  'enrolledW': 'ENRLW',
+  'SATPct': 'SATPCT',
+  'ACTPct': 'ACTPCT',
+  'SATRW25': 'SATVR25',
+  'SATRW50': 'SATVR50',
+  'SATRW75': 'SATVR75',
+  'SATM25': 'SATMT25',
+  'SATM50': 'SATMT50',
+  'SATM75': 'SATMT75',
+  'ACT25': 'ACTCM25',
+  'ACT50': 'ACTCM50',
+  'ACT75': 'ACTCM75',
+  'ACTE25': 'ACTEN25',
+  'ACTE50': 'ACTEN50',
+  'ACTE75': 'ACTEN75',
+  'ACTM25': 'ACTMT25',
+  'ACTM50': 'ACTMT50',
+  'ACTM75': 'ACTMT75',
+}
+
+# adds data for each attribute in the dataMap to the currentCollege dictionary
+def processMap(dataMap, currentCollege, row):
+  for attribute in dataMap:
+    value = row[dataMap.get(attribute)]
+
+    if isinstance(value, pd.Series) and value.empty:
+      currentCollege[attribute] = None
+    elif isinstance(value, pd.Series):
+      currentCollege[attribute] = value.iloc[-1].item()
+    elif isinstance(value, str):
+      currentCollege[attribute] = value
+    else:
+      currentCollege[attribute] = value.item()
+
+# 163286 for UMD
+for i in range(20):
   currentCollege = {}
   collegeDataRow = collegeData.iloc[i]
   currentCollegeUID = collegeDataRow['UNITID'].item()
+  cdsDataRow = cdsData.query(f'UNITID == {currentCollegeUID}')
 
-  currentCollege['UID'] = currentCollegeUID
-  currentCollege['name'] = collegeDataRow['INSTNM']
-  currentCollege['alias'] = collegeDataRow['IALIAS']
-  currentCollege['city'] = collegeDataRow['CITY']
-  currentCollege['state'] = collegeDataRow['STABBR']
+  # If there is no data about number of applications the college wont be added to the database.
+  if cdsDataRow['APPLCN'].empty:
+    continue
+
+  processMap(attributeMapCollege, currentCollege, collegeDataRow)
+  processMap(attributeMapCDS, currentCollege, cdsDataRow)
 
   docRef = db.collection('testing').document(str(currentCollegeUID))
   docRef.set(currentCollege)
-  # if (row.iloc[4] == "College Park"):
-  #   print(row.iloc[4] + row.iloc[5])
-  #   print(i)
 
 
 
-
-# doc_ref = db.collection('test').document("helllll")
-# doc_ref.set(data)
-# doc_ref.set(data2)
 
 
 

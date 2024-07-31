@@ -12,9 +12,9 @@ interface College {
   applicants: number;
   applicantsM: number;
   applicantsW: number;
-  admission: number;
-  admissionM: number;
-  admissionW: number;
+  admitted: number;
+  admittedM: number;
+  admittedW: number;
   enrolled: number;
   enrolledM: number;
   enrolledW: number;
