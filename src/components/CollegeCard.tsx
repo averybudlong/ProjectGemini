@@ -40,7 +40,10 @@ const CollegeCard: React.FC<CollegeCardProps> = ({ college }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Undergraduate Enrollment: {college.enrolled.toString()}</p>
+          <p>
+            Undergraduate Enrollment:{" "}
+            {college.enrolled ? college.enrolled.toString() : "null"}
+          </p>
         </CardContent>
         <CardFooter>
           <p className="overflow-hidden">ID: {college.UID}</p>

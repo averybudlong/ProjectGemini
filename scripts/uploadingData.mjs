@@ -29,34 +29,34 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const collegeDataArray = [];
-collegeDataArray.push(
-  {
-    name: "University of Maryland College-Park",
-    urlName: "UniversityofMarylandCollege-Park",
-    undergradEnrollment: 29982,
-    location: "College Park, MD",
-    imageUrl: "/images/UMD.jpg",
-  },
-  {
-    name: "Squidward Univ",
-    urlName: "SquidwardUniv",
-    undergradEnrollment: 99999,
-    location: "Bikini Bottom, Pacific Ocean",
-  },
-  {
-    name: "Ligma State University",
-    urlName: "LigmaStateUniversity",
-    undergradEnrollment: 69,
-    location: "Balls, MA",
-  },
-  {
-    name: "Oregon State Univ",
-    urlName: "OregonStateUniv",
-    undergradEnrollment: 24444,
-    location: "Corvallis, OR",
-    imageUrl: "/images/columbia.jpg",
-  }
-);
+// collegeDataArray.push(
+//   {
+//     name: "University of Maryland College-Park",
+//     urlName: "UniversityofMarylandCollege-Park",
+//     undergradEnrollment: 29982,
+//     location: "College Park, MD",
+//     imageUrl: "/images/UMD.jpg",
+//   },
+//   {
+//     name: "Squidward Univ",
+//     urlName: "SquidwardUniv",
+//     undergradEnrollment: 99999,
+//     location: "Bikini Bottom, Pacific Ocean",
+//   },
+//   {
+//     name: "Ligma State University",
+//     urlName: "LigmaStateUniversity",
+//     undergradEnrollment: 69,
+//     location: "Balls, MA",
+//   },
+//   {
+//     name: "Oregon State Univ",
+//     urlName: "OregonStateUniv",
+//     undergradEnrollment: 24444,
+//     location: "Corvallis, OR",
+//     imageUrl: "/images/columbia.jpg",
+//   }
+// );
 
 async function addColleges() {
   for (const collegeData of collegeDataArray) {
@@ -96,10 +96,5 @@ async function queryColleges() {
   });
 }
 
-await addColleges();
-await queryColleges();
-
-// Get singular doc
-// const snapShot = await getDoc(docRef);
-// const umd = snapShot.data();
-// console.log(`${JSON.stringify(umd)}`);
+const snapshot = await getDocs(collection(db, "colleges"));
+console.log(snapshot.size);

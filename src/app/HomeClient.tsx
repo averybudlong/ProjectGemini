@@ -6,6 +6,9 @@ import CollegeCard from "../components/CollegeCard";
 import { Courier_Prime, Rubik_Mono_One, Merriweather } from "next/font/google";
 import { useEffect, useMemo, useState } from "react";
 import { College } from "@/types/College";
+import { Button } from "@/components/ui/button";
+
+const CARDS_PER_PAGE = 12;
 
 interface HomeClientProps {
   initialColleges: College[];
@@ -20,15 +23,25 @@ const dmSerifDisplay = Merriweather({
 
 export default function HomeClient({ initialColleges }: HomeClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [filteredColleges, setFilteredColleges] = useState<College[]>([]);
 
-  const filteredColleges = useMemo(() => {
-    return initialColleges.filter((college) =>
+  useEffect(() => {
+    const filtered = initialColleges.filter((college) =>
       college.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    setFilteredColleges(filtered);
+    setPage(1);
   }, [initialColleges, searchTerm]);
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
+  };
+
+  const displayedColleges = filteredColleges.slice(0, page * CARDS_PER_PAGE);
+
+  const loadMore = () => {
+    setPage(page + 1);
   };
 
   return (
@@ -54,10 +67,15 @@ export default function HomeClient({ initialColleges }: HomeClientProps) {
         <SearchBar onSearch={handleSearch} />
 
         <div className="mt-4 grid gap-4 grid-cols-3 xl:grid-cols-4">
-          {filteredColleges.map((college) => (
-            <CollegeCard key={college.urlName} college={college} />
+          {displayedColleges.map((college) => (
+            <CollegeCard key={college.UID} college={college} />
           ))}
         </div>
+        {filteredColleges.length > page * CARDS_PER_PAGE && (
+          <div>
+            <Button onClick={loadMore}>Load More</Button>
+          </div>
+        )}
       </div>
     </div>
   );

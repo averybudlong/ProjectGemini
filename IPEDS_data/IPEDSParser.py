@@ -12,86 +12,6 @@ cdsData = pd.read_csv('adm2022.csv')
 financialData = pd.read_csv('drvf2022.csv')
 headcountData = pd.read_csv('effy2022.csv')
 
-'''
-interface College {
-  UID: number;
-  name: string;
-  alias: string;
-  city: string;
-  state: string;
-  website: string;
-  appWebsite: string;
-  longitude: number;
-  latitude: number;
-  standardizedTest: number;
-  applicants: number;
-  applicantsM: number;
-  applicantsW: number;
-  admitted: number;
-  admittedM: number;
-  admittedW: number;
-  enrolled: number;
-  enrolledM: number;
-  enrolledW: number;
-  SATPct: number;
-  ACTPct: number;
-  SATRW25: number;
-  SATRW50: number;
-  SATRW75: number;
-  SATM25: number;
-  SATM50: number;
-  SATM75: number;
-  ACT25: number;
-  ACT50: number;
-  ACT75: number;
-  ACTE25: number;
-  ACTE50: number;
-  ACTE75: number;
-  ACTM25: number;
-  ACTM50: number;
-  ACTM75: number;
-  imageUrl: string;
-}
-'''
-
-'''
-revenue: F1CORREV
-endowment per student: F1ENDMFT
-instruction per student: F1INSTFT
-research per student: F1RSRCFT
-
-EFFYALEV: 1=AllStudents, 2=AllUndergrad, 12=AllGrad, 21=TotalFullTime, 41=TotalPartTime
-EFYTOTLT: Total
-EFYTOTLM: Total men
-EFYTOTLW: Total women
-EFYAIANT: Total American Indian or Alaska Native
-EFYAIANM: American Indian or Alaska Native Men
-EFYAIANW: American Indian or Alaska Native Women
-EFYASIAT: Total Asian
-EFYASIAM: Asian Men
-EFYASIAW: Asian Women
-EFYBKAAT: Black Total
-EFYBKAAM: Black Men
-EFYBKAAW: Black Women
-EFYHISPT: Hispanic Total
-EFYHISPM: Hispanic Men
-EFYHISPW: Hispanic Women
-EFYNHPIT: Hawaiian / Pacific Islander Total
-EFYNHPIM: Hawaiian / Pacific Islander Men
-EFYNHPIW: Hawaiian / Pacific Islander Women
-EFYWHITT: White Total
-EFYWHITM: White Men
-EFYWHITW: White Women
-EFY2MORT: 2 or more races total
-EFY2MORM: 2 or more races men
-EFY2MORW: 2 or more races women
-EFYUNKNT: unknown total
-EFYNRALT: Non us resident total
-EFYNRALM: Non us resident Men
-EFYNRALW: Non us resident women
-EFYGUTOT: Other/unkown gender
-'''
-
 # maps firestore DB key to csv file key
 attributeMapCollege = {
   'UID': 'UNITID',
@@ -208,8 +128,7 @@ def processMap(dataMap, currentCollege, row):
       currentCollege[attribute] = value.item()
 
 # 163286 for UMD
-# 166027 for Harvard
-for i in range(600, 800):
+for i in range(len(collegeData)):
   currentCollege = {}
   collegeDataRow = collegeData.iloc[i]
   currentCollegeUID = collegeDataRow['UNITID'].item()
@@ -228,7 +147,7 @@ for i in range(600, 800):
   processMap(attributeMapHeadcountGrad, currentCollege, headcountGradDataRow)
   processMap(attributeMapFinancial, currentCollege, financialDataRow)
 
-  docRef = db.collection('testing').document(str(currentCollegeUID))
+  docRef = db.collection('colleges').document(str(currentCollegeUID))
   docRef.set(currentCollege)
 
 
