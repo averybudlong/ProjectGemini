@@ -9,6 +9,7 @@ import {
   query,
   where,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import dotenv from "dotenv";
 
@@ -96,5 +97,15 @@ async function queryColleges() {
   });
 }
 
-const snapshot = await getDocs(collection(db, "colleges"));
-console.log(snapshot.size);
+const collegeRef = doc(db, "colleges", "163286");
+await updateDoc(collegeRef, {
+  imageUrl: "/images/UMD.jpg",
+});
+
+const docSnap = await getDoc(collegeRef);
+console.log(docSnap.data.imageUrl);
+console.log(docSnap.exists());
+// console.log("added");
+
+// const snapshot = await getDocs(collection(db, "colleges"));
+// console.log(snapshot.size);
