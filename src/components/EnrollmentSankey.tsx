@@ -47,7 +47,9 @@ const EnrollmentSankey: React.FC<EnrollmentSankeyProps> = ({
           width={960}
           height={500}
           data={data}
-          node={(props) => <CustomNode {...props} textColor="#ffffff" />}
+          node={(props) => (
+            <CustomNode {...props} textColor={"hsl(var(--foreground))"} />
+          )}
           nodePadding={80}
           margin={{
             left: 50,
@@ -55,7 +57,7 @@ const EnrollmentSankey: React.FC<EnrollmentSankeyProps> = ({
             top: 25,
             bottom: 25,
           }}
-          link={{ stroke: "#77c878" }}
+          link={{ stroke: "hsl(var(--foreground))" }}
           sort={false}
         >
           <Tooltip />

@@ -10,19 +10,35 @@ const CustomSankeyNode = (props: {
   payload: any;
   textColor: string;
 }) => {
-  const { x, y, width, height, payload, textColor } = props;
+  const { x, y, width, height, index, payload, textColor } = props;
 
   const centerX = x + width / 2 + 10;
   const centerY = y + height / 2;
+  const nodeOffset = 5; // Makes the node slightly taller than the link
+  let rectangleColor = "hsl(var(--foreground))";
+
+  if (index == 1) {
+    // rejected
+    rectangleColor = "#f2322c"; // Red
+  } else if (index == 2) {
+    // admitted
+    rectangleColor = "hsl(var(--accent))"; // Green
+  } else if (index == 3) {
+    // enrolled
+    rectangleColor = "#1659f5"; // Blue
+  } else if (index == 4) {
+    // declined
+    rectangleColor = "#eb8f34"; // Orange
+  }
 
   return (
     <g>
       <Rectangle
         x={x}
-        y={y}
+        y={y - nodeOffset / 2}
         width={width}
-        height={height}
-        fill="#ff0000"
+        height={height + nodeOffset}
+        fill={rectangleColor}
         fillOpacity="0.8"
         radius={4}
       />
