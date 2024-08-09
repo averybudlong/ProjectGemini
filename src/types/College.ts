@@ -15,6 +15,9 @@ interface College {
   admitted: number;
   admittedM: number;
   admittedW: number;
+  enrolledCycle: number;
+  enrolledCycleM: number;
+  enrolledCycleW: number;
   enrolled: number;
   enrolledM: number;
   enrolledW: number;

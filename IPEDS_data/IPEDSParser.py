@@ -33,9 +33,9 @@ attributeMapCDS = {
   'admitted': 'ADMSSN',
   'admittedM': 'ADMSSNM',
   'admittedW': 'ADMSSNW',
-  'enrolled': 'ENRLT',
-  'enrolledM': 'ENRLM',
-  'enrolledW': 'ENRLW',
+  'enrolledCycle': 'ENRLT',
+  'enrolledCycleM': 'ENRLM',
+  'enrolledCycleW': 'ENRLW',
   'SATPct': 'SATPCT',
   'ACTPct': 'ACTPCT',
   'SATRW25': 'SATVR25',
@@ -128,27 +128,47 @@ def processMap(dataMap, currentCollege, row):
       currentCollege[attribute] = value.item()
 
 # 163286 for UMD
-for i in range(len(collegeData)):
-  currentCollege = {}
-  collegeDataRow = collegeData.iloc[i]
-  currentCollegeUID = collegeDataRow['UNITID'].item()
-  cdsDataRow = cdsData.query(f'UNITID == {currentCollegeUID}')
-  headcountUndergradDataRow = headcountData.query(f'UNITID == {currentCollegeUID} and EFFYALEV == {2}')
-  headcountGradDataRow = headcountData.query(f'UNITID == {currentCollegeUID} and EFFYALEV == {12}')
-  financialDataRow = financialData.query(f'UNITID == {currentCollegeUID}')
+def addAllCollegeData():
+  for i in range(len(collegeData)):
+    currentCollege = {}
+    collegeDataRow = collegeData.iloc[i]
+    currentCollegeUID = collegeDataRow['UNITID'].item()
+    cdsDataRow = cdsData.query(f'UNITID == {currentCollegeUID}')
+    headcountUndergradDataRow = headcountData.query(f'UNITID == {currentCollegeUID} and EFFYALEV == {2}')
+    headcountGradDataRow = headcountData.query(f'UNITID == {currentCollegeUID} and EFFYALEV == {12}')
+    financialDataRow = financialData.query(f'UNITID == {currentCollegeUID}')
 
-  # If there is no data about number of applications the college wont be added to the database.
-  if cdsDataRow['APPLCN'].empty:
-    continue
+    # If there is no data about number of applications the college wont be added to the database.
+    if cdsDataRow['APPLCN'].empty:
+      continue
 
-  processMap(attributeMapCollege, currentCollege, collegeDataRow)
-  processMap(attributeMapCDS, currentCollege, cdsDataRow)
-  processMap(attributeMapHeadcountUndergrad, currentCollege, headcountUndergradDataRow)
-  processMap(attributeMapHeadcountGrad, currentCollege, headcountGradDataRow)
-  processMap(attributeMapFinancial, currentCollege, financialDataRow)
+    processMap(attributeMapCollege, currentCollege, collegeDataRow)
+    processMap(attributeMapCDS, currentCollege, cdsDataRow)
+    processMap(attributeMapHeadcountUndergrad, currentCollege, headcountUndergradDataRow)
+    processMap(attributeMapHeadcountGrad, currentCollege, headcountGradDataRow)
+    processMap(attributeMapFinancial, currentCollege, financialDataRow)
 
-  docRef = db.collection('colleges').document(str(currentCollegeUID))
-  docRef.set(currentCollege)
+    docRef = db.collection('colleges').document(str(currentCollegeUID))
+    docRef.set(currentCollege)
+
+# accidently had 2 fields named enrolled meaning one of them was overwritten. This function is to add that data back in
+def addEnrollementCycleData():
+  docs = db.collection('colleges').get()
+
+  for doc in docs:
+    cdsDataRow = cdsData.query(f'UNITID == {doc.id}')
+    docRef = db.collection('colleges').document(doc.id)
+    docRef.update({"enrolledCycle": cdsDataRow["ENRLT"].item()})
+    docRef.update({"enrolledCycleM": cdsDataRow["ENRLM"].item()})
+    docRef.update({"enrolledCycleW": cdsDataRow["ENRLW"].item()})
+
+addEnrollementCycleData()
+
+
+
+
+
+  
 
 
 

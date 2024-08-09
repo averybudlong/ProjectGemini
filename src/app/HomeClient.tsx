@@ -15,11 +15,6 @@ interface HomeClientProps {
 }
 
 const courierPrime = Courier_Prime({ subsets: ["latin"], weight: "700" });
-const rubikMonoOne = Rubik_Mono_One({ subsets: ["latin"], weight: "400" });
-const dmSerifDisplay = Merriweather({
-  subsets: ["latin"],
-  weight: "400",
-});
 
 export default function HomeClient({ initialColleges }: HomeClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,7 +68,12 @@ export default function HomeClient({ initialColleges }: HomeClientProps) {
         </div>
         {filteredColleges.length > page * CARDS_PER_PAGE && (
           <div>
-            <Button onClick={loadMore}>Load More</Button>
+            <Button
+              className="mt-8 mb-4 hover:bg-[hsl(142,71%,45%)]"
+              onClick={loadMore}
+            >
+              Load More
+            </Button>
           </div>
         )}
       </div>

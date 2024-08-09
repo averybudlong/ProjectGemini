@@ -1,5 +1,5 @@
 import { getCollege } from "@/app/utils/firebaseUtils";
-import CollegeCard from "@/components/CollegeCard";
+import EnrollmentSankey from "@/components/EnrollmentSankey";
 
 // the id is the urlName
 export default async function CollegePage({
@@ -13,9 +13,20 @@ export default async function CollegePage({
     return <div>College not found</div>;
   }
 
-  const data = Object.entries(college).map(([propertyName, val]) => (
-    <li key={propertyName}>{`${propertyName}: ${val}`}</li>
-  ));
+  // THIS JUST SHOWS ALL THE DATA IN A LIST
+  // const data = Object.entries(college).map(([propertyName, val]) => (
+  //   <li key={propertyName}>{`${propertyName}: ${val}`}</li>
+  // ));
 
-  return <div className="container mx-auto px-4 py-8">{data}</div>;
+  // return <div className="container mx-auto px-4 py-8">{data}</div>;
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <EnrollmentSankey
+        applicants={college.applicants}
+        admitted={college.admitted}
+        enrolled={college.enrolledCycle}
+      />
+    </div>
+  );
 }

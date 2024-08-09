@@ -2,11 +2,7 @@
 "use client";
 
 import React from "react";
-import {
-  IconArrowBarLeft,
-  IconArrowBarRight,
-  IconHome,
-} from "@tabler/icons-react";
+import { IconArrowBarLeft, IconArrowBarRight } from "@tabler/icons-react";
 import ModeToggle from "../components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -48,10 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onOpen, onClose }) => {
                 className="w-full justify-start hover:bg-[hsl(142,71%,45%)] hover:text-[hsl(var(--green-button-text))]"
                 asChild
               >
-                <Link href="/">
-                  <IconHome />
-                  <span className="ml-2">Dashboard</span>
-                </Link>
+                <Link href="/">Dashboard</Link>
               </Button>
             </li>
             <li>
