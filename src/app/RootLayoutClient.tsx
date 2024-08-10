@@ -1,9 +1,9 @@
 // app/RootLayoutClient.tsx
-'use client'
+"use client";
 
 import { useState } from "react";
-import { ThemeProvider } from 'next-themes'
-import Sidebar from '../components/Sidebar';
+import { ThemeProvider } from "next-themes";
+import Sidebar from "../components/Sidebar";
 
 type RootLayoutClientProps = {
   children: React.ReactNode;
@@ -20,15 +20,17 @@ export default function RootLayoutClient({ children }: RootLayoutClientProps) {
       disableTransitionOnChange
     >
       <div className="flex">
-        <Sidebar 
-          isOpen={isSidebarOpen} 
+        <Sidebar
+          isOpen={isSidebarOpen}
           onOpen={() => setIsSidebarOpen(true)}
-          onClose={() => setIsSidebarOpen(false)} 
+          onClose={() => setIsSidebarOpen(false)}
         />
-        <main className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        <main
+          className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen ? "ml-72" : "ml-16"}`}
+        >
           {children}
         </main>
       </div>
     </ThemeProvider>
-  )
+  );
 }
