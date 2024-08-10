@@ -41,29 +41,27 @@ const EnrollmentSankey: React.FC<EnrollmentSankeyProps> = ({
   };
 
   return (
-    <>
-      <ResponsiveContainer width="90%" height={400} minWidth={250}>
-        <Sankey
-          width={960}
-          height={500}
-          data={data}
-          node={(props) => (
-            <CustomNode {...props} textColor={"hsl(var(--foreground))"} />
-          )}
-          nodePadding={80}
-          margin={{
-            left: 50,
-            right: 100,
-            top: 25,
-            bottom: 25,
-          }}
-          link={{ stroke: "hsl(var(--foreground))" }}
-          sort={false}
-        >
-          <Tooltip />
-        </Sankey>
-      </ResponsiveContainer>
-    </>
+    <ResponsiveContainer width="90%" height={400} minWidth={250}>
+      <Sankey
+        width={960}
+        height={500}
+        data={data}
+        node={(props) => (
+          <CustomNode {...props} textColor={"hsl(var(--foreground))"} />
+        )}
+        nodePadding={80}
+        margin={{
+          left: 50,
+          right: 100,
+          top: 10,
+          bottom: 25,
+        }}
+        link={{ stroke: "hsl(var(--foreground))" }}
+        sort={false}
+      >
+        <Tooltip />
+      </Sankey>
+    </ResponsiveContainer>
   );
 };
 

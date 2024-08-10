@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { IconSearch } from "@tabler/icons-react";
 import debounce from "lodash/debounce";
@@ -12,10 +12,11 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const debouncedSearch = useCallback(
-    debounce((term: string) => {
-      onSearch(term);
-    }, 100),
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((term: string) => {
+        onSearch(term);
+      }, 100),
     [onSearch]
   );
 

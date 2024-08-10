@@ -1,10 +1,9 @@
 "use client";
 
-import { getAllColleges } from "@/app/utils/firebaseUtils";
 import SearchBar from "../components/SearchBar";
 import CollegeCard from "../components/CollegeCard";
-import { Courier_Prime, Rubik_Mono_One, Merriweather } from "next/font/google";
-import { useEffect, useMemo, useState } from "react";
+import { Courier_Prime } from "next/font/google";
+import { useEffect, useState } from "react";
 import { College } from "@/types/College";
 import { Button } from "@/components/ui/button";
 
