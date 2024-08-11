@@ -43,7 +43,7 @@ const menuSuggestionFlow = defineFlow(
       },
     });
 
-    // Handle the response from the model API. In this sample, we just
+    // Handl the response from the model API. In this sample, we just
     // convert it to a string, but more complicated flows might coerce the
     // response into structured output or chain the response into another
     // LLM call, etc.
